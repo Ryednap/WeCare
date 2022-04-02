@@ -14,6 +14,7 @@ public:
     void init() const;
     void blinkDot() const;
     void blinkFade() const;
+    void changePin(uint8_t pin);
     String toString() const;
 };
 

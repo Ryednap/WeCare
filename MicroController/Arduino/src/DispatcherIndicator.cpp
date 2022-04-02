@@ -10,6 +10,7 @@ void DispatcherIndicator::init() const {
     // Todo Write to Error report
     if ((int)pin == -1) return;
     pinMode(pin, OUTPUT);
+    digitalWrite(pin, LOW);
 }
 
 void DispatcherIndicator::blinkDot() const {
@@ -46,5 +47,9 @@ void DispatcherIndicator::blinkFade() const {
 
 String DispatcherIndicator::toString() const {
     return {&"The pin of the LED indicator: " [ pin]};
+}
+
+void DispatcherIndicator::changePin(uint8_t inputPin) {
+    pin = inputPin;
 }
 
