@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: 'WeCare'
+      MYSQL_USER: 'ryednap'
+      MYSQL_PASSWORD: 'unico'
+      MYSQL_ROOT_PASSWORD: 'ultimo'
+    ports:
+      - '3306:3306'
+    expose:
+      # open port 3306 open the container
+      - '3306'
+    #data gets deleted after container exits or breaks specify the location to persist
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - database
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '5050:5050'
+    networks:
+      - database
+
+volumes:
+  mysql:
+    driver: local
+
+networks:
+  database:
+    driver: bridge

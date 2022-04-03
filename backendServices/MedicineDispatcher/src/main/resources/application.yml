@@ -4,3 +4,7 @@ server:
 spring:
   application:
     name: MedicineDispatcher
+  datasource:
+    username: 'ryednap'
+    password: 'unico'
+    url: jdbc:mysql://localhost:3306/WeCare
