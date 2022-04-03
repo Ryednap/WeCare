@@ -1,116 +1,46 @@
 package com.iot.backend.services.medicinedispatcher.model;
 
 
-import java.time.LocalTime;
-import java.util.List;
+import javax.persistence.*;
 import java.util.Objects;
 
 
+@Entity
 public class Medicine {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "drugName")
     private String drugName;
+
+    @Column(name = "drugDescription", columnDefinition = "TEXT")
     private String drugDescription;
+
+    @Column(name = "drugType")
     private String drugType;
+
+    @Column(name = "drugDosage")
     private Double drugDosage;
-    private Integer frequency;
-    private List<LocalTime> scheduledTimes;
+
+    @Column(name = "quantityRemaining")
     private Integer quantityRemaining;
 
-    public Medicine(String drugName, String drugDescription, String drugType, Double drugDosage, Integer frequency,
-                    List<LocalTime> scheduledTimes, Integer quantityRemaining) {
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "scheduledTime", column = @Column(name = "drugScheduledTime", columnDefinition = "TIME(0)")),
+            @AttributeOverride(name = "scheduledDays", column = @Column(name = "drugScheduledDays"))
+    })
+    private MedicineScheduledTime drugSchedule;
+
+    public Medicine(String drugName, String drugDescription, String drugType, Double drugDosage, Integer quantityRemaining, MedicineScheduledTime drugSchedule) {
         this.drugName = drugName;
         this.drugDescription = drugDescription;
         this.drugType = drugType;
         this.drugDosage = drugDosage;
-        this.frequency = frequency;
-        this.scheduledTimes = scheduledTimes;
         this.quantityRemaining = quantityRemaining;
+        this.drugSchedule = drugSchedule;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getDrugName() {
-        return drugName;
-    }
-
-    public void setDrugName(String drugName) {
-        this.drugName = drugName;
-    }
-
-    public String getDrugDescription() {
-        return drugDescription;
-    }
-
-    public void setDrugDescription(String drugDescription) {
-        this.drugDescription = drugDescription;
-    }
-
-    public String getDrugType() {
-        return drugType;
-    }
-
-    public void setDrugType(String drugType) {
-        this.drugType = drugType;
-    }
-
-    public Double getDrugDosage() {
-        return drugDosage;
-    }
-
-    public void setDrugDosage(Double drugDosage) {
-        this.drugDosage = drugDosage;
-    }
-
-    public Integer getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(Integer frequency) {
-        this.frequency = frequency;
-    }
-
-    public List<LocalTime> getScheduledTimes() {
-        return scheduledTimes;
-    }
-
-    public void setScheduledTimes(List<LocalTime> scheduledTimes) {
-        this.scheduledTimes = scheduledTimes;
-    }
-
-    public Integer getQuantityRemaining() {
-        return quantityRemaining;
-    }
-
-    public void setQuantityRemaining(Integer quantityRemaining) {
-        this.quantityRemaining = quantityRemaining;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Medicine medicine = (Medicine) o;
-        return Objects.equals(getId(), medicine.getId()) && Objects.equals(getDrugName(), medicine.getDrugName()) && Objects.equals(getDrugDescription(), medicine.getDrugDescription()) && Objects.equals(getDrugType(), medicine.getDrugType()) && Objects.equals(getDrugDosage(), medicine.getDrugDosage()) && Objects.equals(getFrequency(), medicine.getFrequency()) && Objects.equals(getScheduledTimes(), medicine.getScheduledTimes()) && Objects.equals(getQuantityRemaining(), medicine.getQuantityRemaining());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getDrugName(), getDrugDescription(), getDrugType(), getDrugDosage(), getFrequency(), getScheduledTimes(), getQuantityRemaining());
-    }
-
-    @Override
-    public String toString() {
-        return "Medicine{" +
-                "id=" + id +
-                ", drugName='" + drugName + '\'' +
-                ", drugDescription='" + drugDescription + '\'' +
-                ", drugType='" + drugType + '\'' +
-                ", drugDosage=" + drugDosage +
-                ", frequency=" + frequency +
-                ", scheduledTimes=" + scheduledTimes +
-                ", quantityRemaining=" + quantityRemaining +
-                '}';
-    }
+    public Medicine() {}
 }

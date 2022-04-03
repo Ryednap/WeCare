@@ -1,9 +1,12 @@
 package com.iot.backend.services.medicinedispatcher.util;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalTime;
 import java.util.List;
 
 public record MedicineRecord(String drugName, String drugDescription, String drugType, Double drugDosage,
-                             Integer frequency, List<LocalTime> scheduledTimes, Integer quantityRemaining) {
+                             List<DayOfTheWeek> scheduledDays, @JsonFormat(pattern = "HH:mm:ss") List<LocalTime> scheduledTimes,
+                             Integer quantityRemaining) {
 
 }
