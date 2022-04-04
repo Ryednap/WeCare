@@ -1,15 +1,13 @@
 package com.iot.backend.services.medicinedispatcher.model;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.iot.backend.services.medicinedispatcher.util.DayOfTheWeek;
 import com.sun.istack.NotNull;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,15 +15,14 @@ import java.util.Objects;
 public class MedicineScheduledTime {
 
     @ElementCollection
-    @JsonFormat(pattern = "HH:mm:ss")
-    private List<LocalTime> scheduledTime;
+    private List<String> scheduledTime;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
     @NotNull
     private List<DayOfTheWeek> scheduledDays;
 
-    public MedicineScheduledTime(List<LocalTime> scheduledTime, List<DayOfTheWeek> scheduledDays) {
+    public MedicineScheduledTime(List<String> scheduledTime, List<DayOfTheWeek> scheduledDays) {
         this.scheduledTime = scheduledTime;
         this.scheduledDays = scheduledDays;
     }
@@ -34,11 +31,11 @@ public class MedicineScheduledTime {
 
     }
 
-    public List<LocalTime> getScheduledTime() {
+    public List<String> getScheduledTime() {
         return scheduledTime;
     }
 
-    public void setScheduledTime(List<LocalTime> scheduledTime) {
+    public void setScheduledTime(List<String> scheduledTime) {
         this.scheduledTime = scheduledTime;
     }
 

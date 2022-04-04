@@ -4,15 +4,17 @@ import com.iot.backend.services.medicinedispatcher.model.Medicine;
 import com.iot.backend.services.medicinedispatcher.model.MedicineScheduledTime;
 import com.iot.backend.services.medicinedispatcher.repository.MedicineRepository;
 import com.iot.backend.services.medicinedispatcher.util.MedicineRecord;
+import com.iot.backend.services.medicinedispatcher.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
-public record MedicineService(MedicineRepository medicineRepo) {
+public record MedicineService(MedicineRepository medicineRepo, Utility util) {
 
 
     @Autowired
@@ -25,12 +27,13 @@ public record MedicineService(MedicineRepository medicineRepo) {
         medicineRepo.save(med);
     }
 
-    public List<Medicine> getAllMedicine() {
-        return medicineRepo.findAll();
+    public List<MedicineRecord> getAllMedicine() {
+        return medicineRepo.findAll().stream().map(util::medicineEntityToMedicineRecord).collect(Collectors.toList());
     }
 
-    public Medicine getSpecificMedicine(String id) {
+    public MedicineRecord getSpecificMedicine(String id) {
         Optional<Medicine> optionalMedicine = medicineRepo.findById(Long.parseLong(id));
-        return optionalMedicine.orElseGet(Medicine::new);
+        if (optionalMedicine.isPresent()) return util.medicineEntityToMedicineRecord(optionalMedicine.get());
+        return util.medicineEntityToMedicineRecord(new Medicine());
     }
 }

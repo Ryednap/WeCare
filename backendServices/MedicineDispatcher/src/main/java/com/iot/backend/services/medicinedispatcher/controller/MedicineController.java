@@ -1,9 +1,9 @@
 package com.iot.backend.services.medicinedispatcher.controller;
 
-import com.iot.backend.services.medicinedispatcher.model.Medicine;
 import com.iot.backend.services.medicinedispatcher.service.MedicineService;
 import com.iot.backend.services.medicinedispatcher.util.MedicineRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,13 +24,13 @@ public class MedicineController {
         medicineService.saveMedicineRecord(medicine);
     }
 
-    @GetMapping
-    public List<Medicine> getAllMedicine() {
+    @RequestMapping(method=RequestMethod.GET, produces =  MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<MedicineRecord> getAllMedicine() {
         return medicineService.getAllMedicine();
     }
 
     @GetMapping("{id}")
-    public Medicine getSpecificMedicine(@PathVariable String medicineId) {
-        return medicineService.getSpecificMedicine(medicineId);
+    public MedicineRecord getSpecificMedicine(@PathVariable String id) {
+        return medicineService.getSpecificMedicine(id);
     }
 }
