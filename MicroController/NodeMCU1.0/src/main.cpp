@@ -1,22 +1,17 @@
 #include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 #include <ArduinoJson.h>
+#include "api/ServerController.h"
 
-// Server configuration
-const String server = "http://localhost:8080/";
-const String path = "/api/v1/medicine";
 
-[[maybe_unused]] const IPAddress ipAddress(10,42,0,1);
-[[maybe_unused]] const int httpPort = 3000;
 
 // Wifi configuration
-const String SSID = "h2smedia";
-const String password = "helloWorld";
+const String SSID = "hello";
+const String password = "helloworld";
 
-// Machine Configuration
-HTTPClient http;
-WiFiClient client;
+
+// Light configuration
+const int serverStatusLightPin = D0;
 
 
 void printBanner() {
@@ -27,62 +22,39 @@ void printBanner() {
                    );
 }
 
-int attempt = 0;
 
 void setup() {
     Serial.begin(115200);
-    delay(500);
+    delay(5000);
     Serial.println("\n");
     printBanner();
+
     Serial.println("Connecting to .. ");
     Serial.println(SSID);
 
+    WiFi.mode(WIFI_STA);
     WiFi.begin(SSID, password);
+    delay(500);
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
-        Serial.print(".");
+        Serial.printf("Waiting status: %u\n", WiFi.status());
+
     }
 
     Serial.println("");
     Serial.println("Wifi Connected");
     Serial.println("IP Address..");
     Serial.println(WiFi.localIP());
+
+    ServerController::init();
+    pinMode(serverStatusLightPin, OUTPUT);
 }
 
 void loop() {
-    delay(5000);
-
-    // use WiFiClient to create TCP connection to create a transport layer
-    // to transport the HTTP content
-
-    if (!client.connect(ipAddress, httpPort)) {
-        Serial.printf("Attempt %d: Connection Failed....\n", attempt);
-        ++attempt;
-        return;
-    } else {
-        Serial.println("Connection Established to the server....\n");
-        attempt = 0;
+    for (int i = 0; i < 5; ++i) {
+        digitalWrite(serverStatusLightPin, 1);
+        delay(30);
+        digitalWrite(serverStatusLightPin, 0);
     }
-
-    http.begin(client, server + path);
-    delay(10);
-    int responseCode = http.GET();
-    delay(10);
-    Serial.printf("Response Code received From server... : %d\n", responseCode);
-    String payload = http.getString();
-
-
-    // JSON serialization
-    ArduinoJson6193_F1::StaticJsonDocument<200> doc;
-    ArduinoJson6193_F1::DeserializationError deserializationError = ArduinoJson6193_F1::deserializeJson(doc, payload);
-    delay(100);
-
-    if (deserializationError) {
-        Serial.print(F("deserializeJson() Failed: "));
-        Serial.println(deserializationError.f_str());
-        return;
-    }
-
-    Serial.println("\n\n Message Payload");
-    ArduinoJson6193_F1::serializeJsonPretty(doc, Serial);
+    delay(2500);
 }
