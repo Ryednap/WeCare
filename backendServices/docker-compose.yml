@@ -18,21 +18,29 @@ services:
     #data gets deleted after container exits or breaks specify the location to persist
     volumes:
       - mysql:/var/lib/mysql
-    networks:
-      - database
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - '5050:5050'
-    networks:
-      - database
+  mysql_auth:
+   container_name: mysql_auth
+   image: mysql:5.7
+   restart: unless-stopped
+   environment:
+     MYSQL_DATABASE: 'WeCare'
+     MYSQL_USER: 'ryednap'
+     MYSQL_PASSWORD: 'unico'
+     MYSQL_ROOT_PASSWORD: 'ultimo'
+
+   hostname: auth_database
+   ports:
+     - '4022:4022'
+   expose:
+       # open port 4022 open the container
+       - '4022'
+     #data gets deleted after container exits or breaks specify the location to persist
+   volumes:
+       - mysql:/var/lib/mysql_auth
 
 volumes:
   mysql:
     driver: local
-
-networks:
-  database:
-    driver: bridge
+  mysql_auth:
+    driver: local

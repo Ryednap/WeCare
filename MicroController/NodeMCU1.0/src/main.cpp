@@ -1,40 +1,60 @@
-#include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
+#include <ArduinoJson.h>
+#include "api/ServerController.h"
 
 
-String server = "http://dummy.restapiexample.com/api/v1/employees";
-String SSID = "Redmi Note 10S";
-String password = "ujhas8balls";
 
-HTTPClient http;
+// Wifi configuration
+const String SSID = "hello";
+const String password = "helloworld";
+
+
+// Light configuration
+const int serverStatusLightPin = D0;
+
+
+void printBanner() {
+    Serial.println("  _  _            _         __  __    ___   _   _     __  __               _\n"
+                   " | \\| |  ___   __| |  ___  |  \\/  |  / __| | | | |   |  \\/  |  __ _   ___ | |_   ___   _ _\n"
+                   " | .` | / _ \\ / _` | / -_) | |\\/| | | (__  | |_| |   | |\\/| | / _` | (_-< |  _| / -_) | '_|\n"
+                   " |_|\\_| \\___/ \\__,_| \\___| |_|  |_|  \\___|  \\___/    |_|  |_| \\__,_| /__/  \\__| \\___| |_|\n"
+                   );
+}
+
 
 void setup() {
     Serial.begin(115200);
-    delay(10);
+    delay(5000);
     Serial.println("\n");
+    printBanner();
 
-    WiFi.begin(SSID.c_str(), password.c_str());
-    Serial.print("Connecting to..");
+    Serial.println("Connecting to .. ");
+    Serial.println(SSID);
 
-    int i = 0;
+    WiFi.mode(WIFI_STA);
+    WiFi.begin(SSID, password);
+    delay(500);
     while (WiFi.status() != WL_CONNECTED) {
-        delay(1000);
-        Serial.print(++i); Serial.print(' ');
+        delay(500);
+        Serial.printf("Waiting status: %u\n", WiFi.status());
+
     }
-    Serial.println('\n');
-    Serial.println("Connection established!");
-    Serial.print("IP address:\t");
+
+    Serial.println("");
+    Serial.println("Wifi Connected");
+    Serial.println("IP Address..");
     Serial.println(WiFi.localIP());
+
+    ServerController::init();
+    pinMode(serverStatusLightPin, OUTPUT);
 }
 
 void loop() {
-    WiFiClient client;
-    http.begin(client, server);
-
-    int responseCode = http.GET();
-    String payload = http.getString();
-    Serial.println("payload = " + payload);
-    delay(2000);
+    for (int i = 0; i < 5; ++i) {
+        digitalWrite(serverStatusLightPin, 1);
+        delay(30);
+        digitalWrite(serverStatusLightPin, 0);
+    }
+    delay(2500);
 }

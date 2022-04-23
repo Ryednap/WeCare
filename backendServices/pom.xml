@@ -13,6 +13,7 @@
     <!-- reference to the submodules -->
     <modules>
         <module>MedicineDispatcher</module>
+        <module>Authentication</module>
     </modules>
 
     <!-- Project specific properties-->
@@ -54,6 +55,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring.boot.maven.plugin.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+
     </dependencies>
 
     <!-- Project Build configuration -->
