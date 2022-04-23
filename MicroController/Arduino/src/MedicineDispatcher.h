@@ -27,8 +27,8 @@ public:
     MedicineDispatcher() = default;
     MedicineDispatcher(const Vector<uint8_t> &servoPins, const Vector<uint8_t> &indicatorPins);
     void init() const;
-    void move() const;
-    static void displayMessage(const String& ) ;
+    void move(int servoId) const;
+    static void displayMessage(const String&, const String &) ;
 };
 
 

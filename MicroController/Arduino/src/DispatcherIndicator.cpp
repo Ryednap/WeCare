@@ -53,3 +53,7 @@ void DispatcherIndicator::changePin(uint8_t inputPin) {
     pin = inputPin;
 }
 
+void DispatcherIndicator::stop() const {
+    digitalWrite(pin, 0);
+}
+

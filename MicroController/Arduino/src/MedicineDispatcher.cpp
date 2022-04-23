@@ -24,11 +24,23 @@ void MedicineDispatcher::init() const {
     }
 }
 
-void MedicineDispatcher::displayMessage(const String & message) {
+void MedicineDispatcher::displayMessage(const String & message1, const String & message2) {
     lcdDisplay.setCursor(0, 0);
-    lcdDisplay.print(message);
+    lcdDisplay.print(message1);
+    lcdDisplay.setCursor(0, 1);
+    lcdDisplay.print(message2);
 }
 
-void MedicineDispatcher::move() const {
+void MedicineDispatcher::move(int servoId) const {
+    int count = (int)2e6;
+    while (count > 0) {
+        dispatcherServos[servoId].write(0);
+        delay(1000);
+        dispatcherServos[servoId].write(90);
+        dispatcherIndicators[servoId].blinkDot();
+        delay(2500);
+        --count;
+    }
+
 }
 

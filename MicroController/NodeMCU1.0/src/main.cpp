@@ -1,8 +1,11 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ArduinoJson.h>
+
 #include "api/ServerController.h"
 
+
+// I2C Serial Communication
 
 
 // Wifi configuration
@@ -24,7 +27,8 @@ void printBanner() {
 
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(9600);
+
     delay(5000);
     Serial.println("\n");
     printBanner();
@@ -40,7 +44,6 @@ void setup() {
         Serial.printf("Waiting status: %u\n", WiFi.status());
 
     }
-
     Serial.println("");
     Serial.println("Wifi Connected");
     Serial.println("IP Address..");

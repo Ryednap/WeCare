@@ -8,14 +8,12 @@ import org.springframework.stereotype.Component;
 public class Utility {
 
     public Medicine medicineRecordToMedicineEntity(MedicineRecord record) {
-        Medicine med = new Medicine(record.drugName(), record.drugDescription(), record.drugType(), record.drugDosage(),
-                record.quantityRemaining(), new MedicineScheduledTime(record.scheduledTimes(), record.scheduledDays()));
-        return med;
+        return new Medicine(record.getDrugName(), record.getDrugDescription(), record.getDrugType(), record.getDrugDosage(),
+                new MedicineScheduledTime(record.getScheduledTimes(), record.getScheduledDays()));
     }
 
     public MedicineRecord medicineEntityToMedicineRecord(Medicine med) {
-        MedicineRecord medRecord = new MedicineRecord(med.getDrugName(), med.getDrugDescription(), med.getDrugType(), med.getDrugDosage(),
-                med.getDrugSchedule().getScheduledDays(), med.getDrugSchedule().getScheduledTime(), med.getQuantityRemaining());
-        return medRecord;
+        return new MedicineRecord(med.getId(), med.getDrugName(), med.getDrugDescription(), med.getDrugType(), med.getDrugDosage(),
+                med.getDrugSchedule().getScheduledDays(), med.getDrugSchedule().getScheduledTime());
     }
 }

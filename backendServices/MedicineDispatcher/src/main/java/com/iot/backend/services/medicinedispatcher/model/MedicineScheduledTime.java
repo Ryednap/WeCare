@@ -1,13 +1,9 @@
 package com.iot.backend.services.medicinedispatcher.model;
 
-
-import com.iot.backend.services.medicinedispatcher.util.DayOfTheWeek;
 import com.sun.istack.NotNull;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,14 +11,14 @@ import java.util.Objects;
 public class MedicineScheduledTime {
 
     @ElementCollection
+    @NotNull
     private List<String> scheduledTime;
 
     @ElementCollection
-    @Enumerated(EnumType.STRING)
     @NotNull
-    private List<DayOfTheWeek> scheduledDays;
+    private List<String> scheduledDays;
 
-    public MedicineScheduledTime(List<String> scheduledTime, List<DayOfTheWeek> scheduledDays) {
+    public MedicineScheduledTime(List<String> scheduledTime, List<String> scheduledDays) {
         this.scheduledTime = scheduledTime;
         this.scheduledDays = scheduledDays;
     }
@@ -39,11 +35,11 @@ public class MedicineScheduledTime {
         this.scheduledTime = scheduledTime;
     }
 
-    public List<DayOfTheWeek> getScheduledDays() {
+    public List<String> getScheduledDays() {
         return scheduledDays;
     }
 
-    public void setScheduledDays(List<DayOfTheWeek> scheduledDays) {
+    public void setScheduledDays(List<String> scheduledDays) {
         this.scheduledDays = scheduledDays;
     }
 

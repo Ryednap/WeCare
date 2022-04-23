@@ -2,13 +2,15 @@
 // Created by Ryednap(Ujjwal) on 05/04/22.
 //
 
+#include <SoftwareSerial.h>
 #include "ServerController.h"
 
 const int PORT = 80;
 AsyncWebServer server(80);
-
+SoftwareSerial arduinoSlave(D9, D10);
 
 void ServerController::init() {
+    arduinoSlave.begin(9600);
     Serial.println("Starting server... on port 80....");
 
     server.on("/", HTTP_GET, [](AsyncWebServerRequest * req) {
@@ -31,6 +33,8 @@ void ServerController::serverPostRequest(AsyncWebServerRequest * request, uint8_
         responseMessage = "Message Committed Successfully";
     }
     Serial.println(transfer_message);
+    Serial.println(&"\nAvailability " [ arduinoSlave.available()]);
+    arduinoSlave.println(transfer_message);
     request->send(request->beginResponse(statusCode, "text/plan", responseMessage));
 
 }
