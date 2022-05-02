@@ -1,10 +1,11 @@
 //
-// Created by Ryednap(Ujjwal) on 01/04/22.
+// Created by adleon on 25/04/22.
 //
 
 #include "DispatcherIndicator.h"
 
 DispatcherIndicator::DispatcherIndicator(uint8_t pin) : pin(pin) {}
+
 
 void DispatcherIndicator::init() const {
     // Todo Write to Error report
@@ -43,6 +44,7 @@ void DispatcherIndicator::blinkFade() const {
         analogWrite(pin, brightness);
         delay(30);
     }
+    analogWrite(pin, 0);
 }
 
 String DispatcherIndicator::toString() const {
@@ -52,8 +54,3 @@ String DispatcherIndicator::toString() const {
 void DispatcherIndicator::changePin(uint8_t inputPin) {
     pin = inputPin;
 }
-
-void DispatcherIndicator::stop() const {
-    digitalWrite(pin, 0);
-}
-

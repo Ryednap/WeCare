@@ -8,8 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="MedicineDispatcher" />
+        <module name="HealthSerivce" />
         <module name="Authentication" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AnalyticsService" target="17" />
+      <module name="MQTT" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -3,6 +3,7 @@ package com.iot.backend.services.medicinedispatcher.controller;
 import com.iot.backend.services.medicinedispatcher.service.MedicineService;
 import com.iot.backend.services.medicinedispatcher.util.MedicineRecord;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -68,4 +69,23 @@ public class MedicineController {
         medicineService.deleteMedicine(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
+
+    @GetMapping(value = "/date/{date}/{status}")
+    public ResponseEntity<?> getMedicineByDate(@PathVariable String date, @PathVariable String status) {
+        List<MedicineRecord> medicineRecordList = medicineService.getMedicineByDate(date, status);
+        Map<String, List<?>> msg = new HashMap<>();
+        msg.put("medicineList", medicineRecordList);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
+                .body(msg);
+    }
+
+    @PutMapping("/update/{id}/{status}")
+    public ResponseEntity<?> updateMedicineStatus(@PathVariable String id, @PathVariable String status) {
+        String message = medicineService.changeMedicineStatus(id, status);
+        Map<String, String> msg = new HashMap<>();
+        msg.put("message", message);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON)
+                .body(msg);
+    }
+
 }

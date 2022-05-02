@@ -9,7 +9,7 @@
 
 
 // Wifi configuration
-const String SSID = "hello";
+const String SSID = "wow";
 const String password = "helloworld";
 
 
@@ -33,6 +33,21 @@ void setup() {
     Serial.println("\n");
     printBanner();
 
+    WiFi.mode(WIFI_STA);
+    WiFi.disconnect();
+    delay(100);
+    Serial.print("Scan start ... ");
+    int n = WiFi.scanNetworks();
+    Serial.print(n);
+    Serial.println(" network(s) found");
+    for (int i = 0; i < n; i++)
+    {
+        Serial.println(WiFi.SSID(i));
+    }
+    Serial.println();
+
+    delay(5000);
+
     Serial.println("Connecting to .. ");
     Serial.println(SSID);
 
@@ -42,7 +57,6 @@ void setup() {
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
         Serial.printf("Waiting status: %u\n", WiFi.status());
-
     }
     Serial.println("");
     Serial.println("Wifi Connected");
@@ -54,6 +68,8 @@ void setup() {
 }
 
 void loop() {
+    Serial.println("IP address: ");
+    Serial.println(WiFi.localIP());
     for (int i = 0; i < 5; ++i) {
         digitalWrite(serverStatusLightPin, 1);
         delay(30);

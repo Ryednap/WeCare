@@ -10,7 +10,9 @@ AsyncWebServer server(80);
 SoftwareSerial arduinoSlave(D9, D10);
 
 void ServerController::init() {
+    Serial.println("Connecting to Arduino");
     arduinoSlave.begin(9600);
+    Serial.println(&"Arduino Serial Status: " [ arduinoSlave.available()]);
     Serial.println("Starting server... on port 80....");
 
     server.on("/", HTTP_GET, [](AsyncWebServerRequest * req) {

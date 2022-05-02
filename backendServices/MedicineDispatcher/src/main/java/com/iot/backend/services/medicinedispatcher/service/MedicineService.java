@@ -37,4 +37,20 @@ public record MedicineService(MedicineRepository medicineRepo, Utility util) {
         log.info("Deleting Medicine Record with id: " + id);
         medicineRepo.deleteById(Long.parseLong(id));
     }
+
+    public List<MedicineRecord> getMedicineByDate(String date, String status) {
+        return medicineRepo.findAllByDrugSchedule_ScheduledDays(date, Integer.parseInt(status))
+                .stream().map(util::medicineEntityToMedicineRecord)
+                .collect(Collectors.toList());
+    }
+
+    public String changeMedicineStatus(String id, String status) {
+        Optional<Medicine> optionalMedicine = medicineRepo.findById(Long.parseLong(id));
+        if (optionalMedicine.isPresent()) {
+            Medicine medicine = optionalMedicine.get();
+            medicine.setStatus(Integer.parseInt(status));
+            medicineRepo.save(medicine);
+            return "Updated";
+        } else return "Medicine not found";
+    }
 }

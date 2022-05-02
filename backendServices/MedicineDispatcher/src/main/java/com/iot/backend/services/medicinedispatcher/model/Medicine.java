@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
 @EqualsAndHashCode
 @ToString
 public class Medicine {
@@ -28,6 +29,9 @@ public class Medicine {
     @Column(name = "drugDosage")
     private Double drugDosage;
 
+    @Column(name = "status")
+    private Integer status;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "scheduledTime", column = @Column(name = "drugScheduledTime")),
@@ -35,11 +39,12 @@ public class Medicine {
     })
     private MedicineScheduledTime drugSchedule;
 
-    public Medicine(String drugName, String drugDescription, String drugType, Double drugDosage, MedicineScheduledTime drugSchedule) {
+    public Medicine(String drugName, String drugDescription, String drugType, Double drugDosage, MedicineScheduledTime drugSchedule, Integer status) {
         this.drugName = drugName;
         this.drugDescription = drugDescription;
         this.drugType = drugType;
         this.drugDosage = drugDosage;
         this.drugSchedule = drugSchedule;
+        this.status = status;
     }
 }

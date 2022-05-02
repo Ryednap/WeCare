@@ -35,7 +35,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
         log.info("Servlet Path captured: "+ request.getServletPath());
         if (request.getServletPath().equals("/login") || request.getServletPath().equals("/api/login") ||
-            request.getServletPath().equals("/api/user/save")) {
+            request.getServletPath().equals("/api/user/save") || request.getServletPath().equals("/api/ring")) {
             filterChain.doFilter(request, response);
         } else {
             String authorizationHeader = request.getHeader(AUTHORIZATION);
@@ -61,7 +61,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     log.info("USER Verified");
                     filterChain.doFilter(request, response);
                 } catch (Exception e) {
-                    log.error("Error  Decoding token during Authorization : " +  e.getMessage());
+                    log.error("Error Decoding token during Authorization : " +  e.getMessage());
                     Map<String, String> error = new HashMap<>();
                     error.put("error", "Error Verifying the user: " + e.getMessage());
                     response.setContentType(APPLICATION_JSON_VALUE);
