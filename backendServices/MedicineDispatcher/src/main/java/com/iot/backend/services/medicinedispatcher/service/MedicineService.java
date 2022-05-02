@@ -1,11 +1,10 @@
 package com.iot.backend.services.medicinedispatcher.service;
 
 import com.iot.backend.services.medicinedispatcher.model.Medicine;
-import com.iot.backend.services.medicinedispatcher.model.MedicineScheduledTime;
 import com.iot.backend.services.medicinedispatcher.repository.MedicineRepository;
 import com.iot.backend.services.medicinedispatcher.util.MedicineRecord;
 import com.iot.backend.services.medicinedispatcher.util.Utility;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,17 +13,14 @@ import java.util.stream.Collectors;
 
 
 @Service
+@Slf4j
 public record MedicineService(MedicineRepository medicineRepo, Utility util) {
 
-
-    @Autowired
-    public MedicineService {
-    }
-
-    public void saveMedicineRecord(MedicineRecord record) {
-        Medicine med = new Medicine(record.drugName(), record.drugDescription(), record.drugType(), record.drugDosage(),
-                record.quantityRemaining(), new MedicineScheduledTime(record.scheduledTimes(), record.scheduledDays()));
+    public Long saveMedicineRecord(MedicineRecord record) {
+        Medicine med = util.medicineRecordToMedicineEntity(record);
         medicineRepo.save(med);
+        log.info("Medicine Record saved id: " + med.getId());
+        return med.getId();
     }
 
     public List<MedicineRecord> getAllMedicine() {
@@ -35,5 +31,26 @@ public record MedicineService(MedicineRepository medicineRepo, Utility util) {
         Optional<Medicine> optionalMedicine = medicineRepo.findById(Long.parseLong(id));
         if (optionalMedicine.isPresent()) return util.medicineEntityToMedicineRecord(optionalMedicine.get());
         return util.medicineEntityToMedicineRecord(new Medicine());
+    }
+
+    public void deleteMedicine(String id) {
+        log.info("Deleting Medicine Record with id: " + id);
+        medicineRepo.deleteById(Long.parseLong(id));
+    }
+
+    public List<MedicineRecord> getMedicineByDate(String date, String status) {
+        return medicineRepo.findAllByDrugSchedule_ScheduledDays(date, Integer.parseInt(status))
+                .stream().map(util::medicineEntityToMedicineRecord)
+                .collect(Collectors.toList());
+    }
+
+    public String changeMedicineStatus(String id, String status) {
+        Optional<Medicine> optionalMedicine = medicineRepo.findById(Long.parseLong(id));
+        if (optionalMedicine.isPresent()) {
+            Medicine medicine = optionalMedicine.get();
+            medicine.setStatus(Integer.parseInt(status));
+            medicineRepo.save(medicine);
+            return "Updated";
+        } else return "Medicine not found";
     }
 }

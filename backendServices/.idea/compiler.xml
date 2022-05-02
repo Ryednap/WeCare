@@ -2,13 +2,19 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="MedicineDispatcher" />
+        <module name="HealthSerivce" />
         <module name="Authentication" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AnalyticsService" target="17" />
+      <module name="MQTT" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
