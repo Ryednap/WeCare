@@ -14,7 +14,7 @@ However some components need still to be completed, apart from cloud deployement
 ## How To Build ❓
 
 Clone the repository and follow how to build each module seperately. </br>
-Note that ***Hardware** and ***Analytics*** don't need any configuration, however being in development phase, in order to build **application** and **server** heavy configuration is needed. Once deployed on Cloud things will become much easire.
+Note that ***Hardware*** and ***Analytics*** don't need any configuration, however being in development phase, in order to build **application** and **server** heavy configuration is needed. Once deployed on Cloud things will become much easier.
 
 ## Output 📺
 
