@@ -1,7 +1,7 @@
 # WeCare
 An IoT functional android application to  help in day-to-day medication and health routine.
 
-<h3 style="color:red;"> Currently Under Development </h3>
+![#1589F0] Currently Under Development
 
 The project contains 4 modules (hardware [arduino, node-mcu], analytics, backend, application).
 However some components need still to be completed, apart from cloud deployement. Here's the status of each module.
