@@ -18,4 +18,4 @@ Note that ***Hardware** and ***Analytics*** don't need any configuration, howeve
 
 ## Output 📺
 
-<a href="https://imgur.com/rUiN5qn"><img src="https://i.imgur.com/rUiN5qn.jpg" title="source: imgur.com" /></a>
+<a href="https://imgur.com/rUiN5qn"><img src="https://i.imgur.com/rUiN5qn.jpg" title="source: imgur.com" height="600" width="300"/></a>
