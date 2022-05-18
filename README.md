@@ -6,8 +6,8 @@ However some components need still to be completed. Here's the status of each mo
 
 * Hardware ✔️
 * Analytics ✔️
-* Backend ✖️ (analytics still isn't integrated problem with DJL so for temprorary workaround $HealthService$ delgates work to external flask server which hosts the DL model).
-* Application ✖️ (HealthService left to be integrated along with minor fixes)
+* Backend ✖️ (analytics still isn't integrated problem with DJL so for temprorary workaround ``HealthService`` delgates work to external flask server which hosts the DL model).
+* Application ✖️ (``HealthService`` left to be integrated along with minor fixes)
 
 
 
