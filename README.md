@@ -20,8 +20,8 @@ Note that ***Hardware** and ***Analytics*** don't need any configuration, howeve
 
 <table>
   <tr>
-    <td>Registration Page</td>
-     <td>Login Page</td>
+    <td>Login Page</td>
+     <td>Registration Page</td>
      <td></td>
   </tr>
   <tr>
