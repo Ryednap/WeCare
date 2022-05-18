@@ -18,8 +18,15 @@ Note that ***Hardware** and ***Analytics*** don't need any configuration, howeve
 
 ## Output 📺
 
-<p float="middle">
-  <a href="https://imgur.com/rUiN5qn"><img src="https://i.imgur.com/rUiN5qn.jpg" title="source: imgur.com" height="600" width="300"/></a>
-  <a href="https://imgur.com/ZexRy6C"><img src="https://i.imgur.com/ZexRy6C.jpg" title="source: imgur.com" height="600" width="300" /></a>
-</p>
+<table>
+  <tr>
+    <td>Registration Page</td>
+     <td>Login Page</td>
+     <td></td>
+  </tr>
+  <tr>
+    <td><a href="https://imgur.com/rUiN5qn"><img src="https://i.imgur.com/rUiN5qn.jpg" title="source: imgur.com" height="600" width="300"/></a></td>
+    <td><a href="https://imgur.com/ZexRy6C"><img src="https://i.imgur.com/ZexRy6C.jpg" title="source: imgur.com" height="600" width="300" /></td>
+  </tr>
+ </table>
 
