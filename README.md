@@ -22,11 +22,12 @@ Note that ***Hardware** and ***Analytics*** don't need any configuration, howeve
   <tr>
     <td>Login Page</td>
      <td>Registration Page</td>
-     <td></td>
+     <td>Home Page</td>
   </tr>
   <tr>
     <td><a href="https://imgur.com/rUiN5qn"><img src="https://i.imgur.com/rUiN5qn.jpg" title="source: imgur.com" height="600" width="300"/></a></td>
     <td><a href="https://imgur.com/ZexRy6C"><img src="https://i.imgur.com/ZexRy6C.jpg" title="source: imgur.com" height="600" width="300" /></td>
+    <td><a href="https://imgur.com/yUtA0v1"><img src="https://i.imgur.com/yUtA0v1.png" title="source: imgur.com" height="600" width="300"/></a></td>
   </tr>
  </table>
 
