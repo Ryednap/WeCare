@@ -18,6 +18,8 @@ Note that ***Hardware*** and ***Analytics*** don't need any configuration, howev
 
 ## Output 📺
 
+<a href="https://drive.google.com/file/d/1ly1BygWUCJil2Xyxi5fdx6SV2swUpJbl/view?usp=sharing"> Demo Video </a>
+
 <table>
   <tr>
     <td>Login Page</td>
